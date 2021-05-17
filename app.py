@@ -5,29 +5,21 @@ import scrape_mars
 
 # create instance of Flask app
 app = Flask(__name__)
-
-# Create connection variable
-conn = 'mongodb://localhost:27017'
-
-# Pass connection to the pymongo instance.
-client = pymongo.MongoClient(conn)
-
-# Connect to a database. Will create one if not already available.
-db = client.mars_db
-
-#drop mars db is exists
-db.mars.drop()
+mongo = PyMongo(app, uri="mongodb://localhost:27017/mars_db")
 
 @app.route('/')
 def index():
-    # Store the entire team collection in a list
-    teams = list(db.team.find())
-    print(teams)
+    mars = mongo.db.mars.find_one()
+    # Return the template
+    return render_template('index.html', mars=mars)
 
-    # Return the template with the teams list passed in
-    return render_template('index.html', teams=teams)
+@app.route('/scrape')
+def scrape():
+    mars = mongo.db.mars
+    mars_data = scrape_mars.scrape()
+    mars.update({}, mars_data, upsert=True)
 
-
+    return redirect('/', code=302)
 
 if __name__ == "__main__":
     app.run(debug=True)
