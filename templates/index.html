@@ -10,80 +10,70 @@
     <meta name="description" content="Source code generated using layoutit.com">
     <meta name="author" content="LayoutIt!">
 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
   </head>
   <body>
 
     <div class="container-fluid">
-	<div class="row">
-		<div class="col-md-12">
-			<div class="jumbotron">
-				<h2>
-					Mission to Mars
-				</h2>
+		<div class="jumbotron text-center">
+		  <h1>Mission to Mars</h1>
+		  <p><a class="btn btn-primary btn-lg" href='/scrape' role="button">Scrape New Data</a></p>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<h3>
+					Latest Mars News
+				</h3>
+				<h4>
+					{{mars.news_title}}
+				</h4>
 				<p>
-					<a class="btn btn-primary btn-large" href="/scrape">Scrape New Data</a>
+					{{mars.news_text}}
 				</p>
 			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<h3>
-						Latest Mars News
-					</h3>
-					<h4>
-						{{mars.news_title}}
-					</h4>
-					<p>
-						{{mars.news_text}}
-					</p>
-				</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<h3>
+					Featured Mars Image
+				</h3>
+				<img alt="Featured Mars Image" src="{{mars.featured_image_url}}">
 			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<h3>
-						Featured Mars Image
-					</h3>
-					<img alt="Featured Mars Image" src="{{mars.featured_image_url}}">
-				</div>
-				<div class="col-md-6">
-					<h5>
-						Mars Facts
-					</h5>
-					<table>
-						{{mars.facts_html|safe}}
-					</table>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<h3 style="text-align: center;">
-						Mars Hemispheres
-					</h3>
-				</div>
-			<hr>
-			</div>
-			<div class="row">
-				<!-- searched how to create for loop-->
-				{% for img in mars.hemisphere_image_urls}
-				<div class="col-md-6">
-					<figure class="figure">
-						<img src="{{img.url_img}}"
-						<figcaption>
-							<h4>
-								{{img.title}}
-							</h4>
-						</figcaption>
-					</figure>
-				</div>
-				{% endfor %}
+			<div class="col-md-6">
+				<h5>
+					Mars Facts
+				</h5>
+				<table>
+					{{mars.facts_html|safe}}
+				</table>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<h3 style="text-align: center;">
+					Mars Hemispheres
+				</h3>
+			</div>
+		<hr>
+		</div>
+		<div class="row">
+			<!-- searched how to create for loop-->
+			{% for img in mars.hemisphere_image_urls %}
+			<div class="col-md-6">
+				<figure class="figure">
+					<img src="{{img.url_img}}"
+					<figcaption>
+						<h4>
+							{{img.title}}
+						</h4>
+					</figcaption>
+				</figure>
+			</div>
+			{% endfor %}
+		</div>
 	</div>
-</div>
-
-    <script src="js/jquery.min.js"></script>
+	<script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/scripts.js"></script>
   </body>

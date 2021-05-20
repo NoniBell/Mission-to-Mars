@@ -1,10 +1,10 @@
 from splinter import Browser
-from bs4 import BeautfiulSoup as bs
+from bs4 import BeautifulSoup as bs
 import pandas as pd
 from webdriver_manager.chrome import ChromeDriverManager
 
 def init_browser():
-     executable_path = {'executable_path': "/usr/local/bin/chromedriver"}
+     executable_path = {'executable_path': ChromeDriverManager().install()}
      browser = Browser('chrome', **executable_path, headless=False)
      return browser
 
@@ -122,10 +122,10 @@ def scrape():
 
     #add hem list to mars_dict
     mars_dict['hemisphere_image_urls'] = hemisphere_image_urls
+    
+    browser.quit()
 
     return mars_dict
-
-    browser.quit()
 
 
 
